@@ -6,6 +6,9 @@ import { AppService } from './app.service';
 import { ClassesModule } from './classroom/classes.module';
 import { StudentsModule } from './student/students.module';
 
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 @Module({
   imports: [
     ClassesModule,
@@ -13,6 +16,9 @@ import { StudentsModule } from './student/students.module';
     MongooseModule.forRoot(
       'mongodb+srv://test:test@cluster0.kigwn.mongodb.net/bezeferDB?retryWrites=true&w=majority',
     ),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
