@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,8 +14,9 @@ import { join } from 'path';
   imports: [
     ClassesModule,
     StudentsModule,
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      'mongodb+srv://test:test@cluster0.kigwn.mongodb.net/bezeferDB?retryWrites=true&w=majority',
+      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.kigwn.mongodb.net/${process.env.DB_DATABASE}?retryWrites=${process.env.DB_ENCRYPT}&w=majority`,
     ),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),

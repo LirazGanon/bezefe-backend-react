@@ -33,6 +33,7 @@ export class ClassroomService {
 
   async getClasses() {
     let classes: any[] = await this.classroomModel.find().exec();
+    console.log(process.env.DB_DATABASE);
     if (!classes || !classes.length) {
       classes = this.setDefaultClasses();
       this.classroomModel.insertMany(classes);
